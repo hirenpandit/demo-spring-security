@@ -45,11 +45,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         UserDetails userDetails = User.builder()
                 .username("admin")
-                .password("{noop}admin")
+                .password("secret")
                 .roles("USER")
+                .passwordEncoder(encoderFunction)
                 .build();
         return new InMemoryUserDetailsManager(userDetails);
     }
 
+    @Bean
+    public BCryptPasswordEncoder bCryptPasswordEncoder(){
+        return new BCryptPasswordEncoder();
+    }
 
 }

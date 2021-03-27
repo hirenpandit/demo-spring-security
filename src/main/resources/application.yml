@@ -6,5 +6,8 @@ server:
 management:
   endpoints:
     enabled-by-default: true
+logging:
+  level:
+    ROOT: INFO
 
 
