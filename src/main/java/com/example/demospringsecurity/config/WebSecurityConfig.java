@@ -29,6 +29,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/actuator/*")
                 .permitAll()
+                .antMatchers("/greeting/admin/**").hasAuthority("ROLE_ADMIN")
+                .antMatchers("/greeting/user/**").hasAuthority("ROLE_USER")
                 .anyRequest()
                 .authenticated()
                 .and()
@@ -43,13 +45,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             return encoder.encode(str);
         };
 
-        UserDetails userDetails = User.builder()
-                .username("admin")
+        UserDetails userUser = User.builder()
+                .username("user")
                 .password("secret")
-                .roles("USER")
+                .authorities("ROLE_USER")
                 .passwordEncoder(encoderFunction)
                 .build();
-        return new InMemoryUserDetailsManager(userDetails);
+        UserDetails userAdmin = User.builder()
+                .username("admin")
+                .password("secret")
+                .authorities("ROLE_ADMIN")
+                .passwordEncoder(encoderFunction)
+                .build();
+        return new InMemoryUserDetailsManager(userUser, userAdmin);
     }
 
     @Bean

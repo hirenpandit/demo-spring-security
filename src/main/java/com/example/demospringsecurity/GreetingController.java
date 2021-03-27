@@ -8,9 +8,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class GreetingController {
 
-    @GetMapping("/{name}")
-    public ResponseEntity<String> greet(@PathVariable String name) {
-        return ResponseEntity.ok("Hello, "+name);
+    @GetMapping("/greeting/admin/{name}")
+    public ResponseEntity<String> greetAdmin(@PathVariable String name) {
+        return ResponseEntity.ok("Greeting Admin, "+name);
     }
+
+
+    @GetMapping("/greeting/user/{name}")
+    public ResponseEntity<String> greetUser(@PathVariable String name) {
+        return ResponseEntity.ok("Greeting User, "+name);
+    }
+
+
 
 }
