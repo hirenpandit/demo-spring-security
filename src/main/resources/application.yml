@@ -1,13 +1,19 @@
 server:
   servlet:
     context-path: /demo-spring
-  port: 8080
+  port: 8443
+  ssl:
+    key-store-type: PKCS12
+    key-store: classpath:keystore/demo.p12
+    key-store-password: changeit
+    key-alias: demo
+    enabled: true
 
 management:
   endpoints:
     enabled-by-default: true
 logging:
   level:
-    ROOT: INFO
+    ROOT: DEBUG
 
 
